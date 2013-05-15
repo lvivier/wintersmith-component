@@ -1,0 +1,12 @@
+!!! 5
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title component
+    link(rel='stylesheet', href='build/build.css')
+    script(src='build/build.js')
+    script
+      window.hello = require('hello')
+  body
+    button(onclick='alert(hello)') click me
+    img(src='/hello/hello.png')

@@ -1,0 +1,8 @@
+{
+  "name": "hello",
+  "files": ["hello.png"],
+  "scripts": ["index.js"],
+  "styles": ["hello.css"],
+  "local": ["world"],
+  "main": "index.js"
+}
