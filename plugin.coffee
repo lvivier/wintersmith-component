@@ -1,13 +1,13 @@
 Builder = require 'component-builder'
+path    = require 'path'
 flatten = require('underscore').flatten
 union   = require('underscore').union
-path    = require('path')
 
 module.exports = (env, cb) ->
 
   defaults =
-    development: true
-    sourceUrls:  true
+    dev: env.mode == 'preview'
+    sourceUrls: env.mode == 'preview'
     src: '.' # location of base component.json
     js:  'build/build.js'
     css: 'build/build.css'
@@ -29,12 +29,13 @@ module.exports = (env, cb) ->
   env.registerGenerator 'component', (contents, cb) ->
 
     builder = new Builder options.src
-    builder.copyAssetsTo env.config.output
 
-    if options.development?
-      builder.development()
-    if options.sourceUrls?
-      builder.addSourceURLs()
+    # configure builder
+    builder.copyAssetsTo env.config.output
+    builder.copy = true
+    builder.dev = options.dev
+    builder.sourceUrls = options.sourceUrls
+    builder.urlPrefix = env.config.baseUrl
     # TODO builder plugins (.use()) and lookups (.addLookup)
 
     builder.build (err, res) ->
@@ -43,16 +44,15 @@ module.exports = (env, cb) ->
         return cb err        
 
       app = {}
-      app['build/build.js']  = new ComponentOutput 'js', res.require + res.js
-      app['build/build.css'] = new ComponentOutput 'css', res.css
+      app[options.js]  = new ComponentOutput 'js', res.require + res.js
+      app[options.css] = new ComponentOutput 'css', res.css
 
-      # register asset files with preview server
-      if env.mode == 'preview'
-        files = union flatten(res.files), flatten(res.images), flatten(res.fonts)
-        for file in files
-          relative = path.relative env.config.output, file
-          full = path.join env.workDir, file
-          app[relative] = new env.plugins.StaticFile({relative:relative,full:full})
+      # register asset files
+      files = union flatten(res.files), flatten(res.images), flatten(res.fonts)
+      for file in files
+        relative = path.relative env.config.output, file
+        full = path.join env.workDir, file
+        app[relative] = new env.plugins.StaticFile({relative:relative,full:full})
 
       cb err, app
 
