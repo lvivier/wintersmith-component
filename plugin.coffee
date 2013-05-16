@@ -11,6 +11,7 @@ module.exports = (env, cb) ->
     src: '.' # location of base component.json
     js:  'build/build.js'
     css: 'build/build.css'
+    use: [] # array of builder.js plugins
 
   options = env.config.component or {}
   for key, value of defaults
@@ -36,12 +37,18 @@ module.exports = (env, cb) ->
     builder.dev = options.dev
     builder.sourceUrls = options.sourceUrls
     builder.urlPrefix = env.config.baseUrl
-    # TODO builder plugins (.use()) and lookups (.addLookup)
+
+    # load builder plugins
+    for plugin in options.use
+      id = env.workDir + "/#{plugin}"
+      builder.use require id
+
+    # TODO lookups (.addLookup)
 
     builder.build (err, res) ->
 
       if err?
-        return cb err        
+        return cb(new Error(err))
 
       app = {}
       app[options.js]  = new ComponentOutput 'js', res.require + res.js
