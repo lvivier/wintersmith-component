@@ -1,14 +1,17 @@
 {
   "name": "wintersmith-component",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "Luke Vivier <luke@vivier.ca>",
   "description": "component plugin for wintersmith",
   "homepage": "https://github.com/lvivier/wintersmith-component",
   "license": "MIT",
+  "keywords": ["wintersmith-plugin"],
   "dependencies": {
     "coffee-script": ">=1.1.0",
     "component-builder": ">=0.8.2",
-    "async": ">= 0.0.1",
     "underscore": "~1.4.4"
+  },
+  "devDependencies": {
+    "wintersmith": ">= 2.0.0"
   }
 }
