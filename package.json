@@ -1,6 +1,6 @@
 {
   "name": "wintersmith-component",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Luke Vivier <luke@vivier.ca>",
   "description": "component plugin for wintersmith",
   "homepage": "https://github.com/lvivier/wintersmith-component",

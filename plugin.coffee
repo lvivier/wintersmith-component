@@ -6,12 +6,12 @@ union   = require('underscore').union
 module.exports = (env, cb) ->
 
   defaults =
-    dev: env.mode == 'preview'
-    sourceUrls: env.mode == 'preview'
-    src: '.' # location of base component.json
-    js:  'build/build.js'
-    css: 'build/build.css'
-    use: [] # array of builder.js plugins
+    dev: env.mode == 'preview'        # include development dependencies
+    sourceUrls: env.mode == 'preview' # add @sourceURLs for easy debugging
+    src: '.'                          # location of base component.json
+    js: 'build/build.js'              # path to JS output
+    css: 'build/build.css'            # path to CSS output
+    use: []                           # array of builder.js plugins
 
   options = env.config.component or {}
   for key, value of defaults
