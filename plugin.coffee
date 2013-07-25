@@ -11,6 +11,7 @@ module.exports = (env, cb) ->
     src: '.'                          # location of base component.json
     js: 'build/build.js'              # path to JS output
     css: 'build/build.css'            # path to CSS output
+    urlPrefix: '..'                   # prefix CSS urls
     use: []                           # array of builder.js plugins
 
   options = env.config.component or {}
@@ -36,7 +37,8 @@ module.exports = (env, cb) ->
     builder.copy = true
     builder.dev = options.dev
     builder.sourceUrls = options.sourceUrls
-    builder.urlPrefix = env.config.baseUrl
+    # prefix css urls
+    builder.urlPrefix = options.urlPrefix
 
     # load builder plugins
     for plugin in options.use
