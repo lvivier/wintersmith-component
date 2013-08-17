@@ -34,6 +34,7 @@ defaults =
   src: '.'                          # location of base component.json
   js: 'build/build.js'              # path to JS output
   css: 'build/build.css'            # path to CSS output
+  urlPrefix: '..'                   # prefix CSS urls
   use: []                           # array of builder.js plugins†
 ```
 
