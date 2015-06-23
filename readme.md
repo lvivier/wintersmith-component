@@ -2,8 +2,7 @@
 
 [Component][1] plugin for [wintersmith][2].
 
-Still in a development stage (0.0.5), PRs welcome!
-
+> **HEY!** [Component is not maintained anymore](https://github.com/componentjs/component/issues/639) and neither is this module!
 
 ## Install
 
